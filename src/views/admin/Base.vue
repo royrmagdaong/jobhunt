@@ -1,5 +1,7 @@
 <template>
-  <div>Applicant home</div>
+  <div>
+      <router-view></router-view>
+  </div>
 </template>
 
 <script>

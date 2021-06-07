@@ -6,13 +6,15 @@ import SignIn from './views/SignIn'
 import SignUp from './views/SignUp'
 
 // admin
-import AdminHome from './views/admin/Home'
+import AdminBase from './views/admin/Base'
+import AdminUsers from './views/admin/Users'
 
 // applicant
-import ApplicantHome from './views/applicant/Home'
+import ApplicantBase from './views/applicant/Base'
+
 
 // company
-import CompanyHome from './views/company/Home'
+import CompanyBase from './views/company/Base'
 
 
 Vue.use(Router)
@@ -34,33 +36,106 @@ const router =  new Router({
     {
       path: '/register',
       name: 'register',
-      component: SignUp
+      component: SignUp,
+      meta:{
+        noLoggedInUser: true
+      }
     },
     {
       path: '/login',
       name: 'login',
-      component: SignIn
+      component: SignIn,
+      meta:{
+        noLoggedInUser: true
+      }
     },
     {
       path: '/admin',
       name: 'admin',
-      component: AdminHome
+      component: AdminBase,
+      meta:{
+        requiresAuth: true,
+        isAdminOnly: true
+      },
+      children: [
+        { path: "users", component: AdminUsers },
+        { path: "*", component: NotFound } // should be last
+      ]
     },
     {
       path: '/applicant',
       name: 'applicant',
-      component: ApplicantHome
+      component: ApplicantBase,
+      meta:{
+        requiresAuth: true,
+        isApplicantOnly: true
+      },
+      children: [
+        { path: "*", component: NotFound }
+      ]
     },
     {
       path: '/company',
       name: 'company',
-      component: CompanyHome
+      component: CompanyBase,
+      meta:{
+        requiresAuth: true,
+        isCompanyOnly: true
+      },
+      children: [
+        { path: "*", component: NotFound }
+      ]
     },
   ]
 });
 
 router.beforeEach((to, from, next) => {
-    next();
+  let userInfo = JSON.parse(localStorage.getItem('userInfo'))
+  let userRole = null
+  if(userInfo){
+    userRole = userInfo.role
+  }
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!userInfo) {
+      next('/login')
+    } else if( to.matched.some(record => record.meta.isAdminOnly) && (userRole==="applicant" || userRole==="company") ){
+      if(userRole==="applicant"){
+        next('/applicant')
+      }else{
+        next('/company')
+      }
+    }else if( to.matched.some(record => record.meta.isCompanyOnly) && (userRole==="applicant" || userRole==="admin") ){
+      if(userRole==="applicant"){
+        next('/applicant')
+      }else{
+        next('/admin')
+      }
+    }else if( to.matched.some(record => record.meta.isApplicantOnly) && (userRole==="admin" || userRole==="company") ){
+      if(userRole==="admin"){
+        next('/admin')
+      }else{
+        next('/company')
+      }
+    }else{
+      next()
+    }
+  } else if(to.matched.some(record => record.meta.noLoggedInUser)){
+    if(userRole){
+      if(userRole === 'applicant'){
+        next('/applicant')
+      }else if(userRole === 'company'){
+        next('/company')
+      }else{
+        next('/admin')
+      }
+    }else{
+      next()
+    }
+  }else{
+    next()
+  }
+  
 });
 
 export default router;
