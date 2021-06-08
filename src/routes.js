@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+// 
 import Home from './components/Home'
 import NotFound from './views/NotFound'
 import SignIn from './views/SignIn'
 import SignUp from './views/SignUp'
+import Jobs from './views/Jobs'
+
 
 // admin
 import AdminBase from './views/admin/Base'
@@ -39,6 +43,11 @@ const router =  new Router({
       meta:{
         noLoggedInUser: true
       }
+    },
+    {
+      path: '/jobs',
+      name: 'jobs',
+      component: Jobs,
     },
     {
       path: '/login',
