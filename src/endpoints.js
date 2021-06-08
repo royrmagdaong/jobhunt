@@ -1,4 +1,6 @@
 const user = 'user/'
 export default {
-    signIn: user + 'signin'
+    signIn: user + 'signin',
+    signUpApplicant: user + 'create/applicant',
+    signUpCompany: user + 'create/company',
 }

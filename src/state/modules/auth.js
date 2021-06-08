@@ -1,5 +1,7 @@
 import {
-    login
+    login,
+    signUpApplicant,
+    signUpCompany
 } from '../../api'
 
 var store = {
@@ -20,18 +22,19 @@ var store = {
             let userInfo = JSON.parse(localStorage.getItem('userInfo'))
             context.commit('SET_USER_INFO', userInfo)
         },
-        register({context}){
-            console.log(context)
-            // axios.post('/user/create', {
-            //     role: "applicant",
-            //     name: payload.name,
-            //     email: payload.email,
-            //     password: payload.password
-            // }).then(res => {
-            //     console.log(res)
-            // }).catch(err => {
-            //     console.log(err)
-            // })
+        signUpApplicant(context, payload){
+            return new Promise((resolve, reject) => {
+                signUpApplicant(payload)
+                .then(res => { resolve(res.data) })
+                .catch(err => { reject(err) })
+            })
+        },
+        signUpCompany(context, payload){
+            return new Promise((resolve, reject) => {
+                signUpCompany(payload)
+                .then(res => { resolve(res.data) })
+                .catch(err => { reject(err) })
+            })
         },
         signIn(context, payload){
             return new Promise((resolve, reject) => {
@@ -39,16 +42,11 @@ var store = {
                     if(res.data.response){
                         localStorage.setItem('userInfo', JSON.stringify(res.data.data))
                         context.commit('SET_USER_INFO', res.data.data)
-                        // console.log(res.data)
                         resolve(res.data)
                     }else{
-                        // console.log(res.data)
                         resolve(res.data)
                     }
-                }).catch(err => {
-                    // console.log(err.response.data.message)
-                    reject(err)
-                })
+                }).catch(err => { reject(err) })
             })
         },
         logout(context){

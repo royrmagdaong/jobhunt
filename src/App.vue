@@ -4,6 +4,9 @@
     <app-bar></app-bar>
     <div style="margin-bottom: 80px;"></div>
 
+    <!-- snackbar -->
+    <app-snackbar></app-snackbar>
+
     <v-main>
       <router-view></router-view>
     </v-main>
@@ -12,17 +15,18 @@
 
 <script>
 import AppBar from './components/AppBar.vue'
+import Snackbar from './components/Snackbar.vue'
 
 export default {
   name: 'App',
 
   components: {
-    'app-bar': AppBar
+    'app-bar': AppBar,
+    'app-snackbar': Snackbar
   },
 
   data: () => ({
     //
-    
   }),
   
 };

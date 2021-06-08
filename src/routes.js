@@ -12,7 +12,6 @@ import AdminUsers from './views/admin/Users'
 // applicant
 import ApplicantBase from './views/applicant/Base'
 
-
 // company
 import CompanyBase from './views/company/Base'
 

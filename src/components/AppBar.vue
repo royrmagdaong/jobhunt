@@ -1,6 +1,6 @@
 <template>
 <div class="appbar green pa-4 d-flex justify-space-between align-center">
-    <h1 @click="routeTo('/')" class="white--text brandname">Brand</h1>
+    <h1 @click="routeTo('/')" class="white--text brandname">JobHunt</h1>
     <div v-if="!userInfo">
         <v-btn text class="white--text" @click="routeTo('/register')">Sign Up</v-btn>
         <v-btn text class="white--text" @click="routeTo('/login')">Login</v-btn>

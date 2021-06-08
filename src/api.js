@@ -11,3 +11,27 @@ export function login(payload){
         .catch(err => { reject(err)} )
     })
 }
+
+export function signUpApplicant(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.signUpApplicant, {
+            name: payload.name,
+            email: payload.email,
+            password: payload.password
+        })
+        .then(res => { resolve(res)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function signUpCompany(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.signUpCompany, {
+            name: payload.name,
+            email: payload.email,
+            password: payload.password
+        })
+        .then(res => { resolve(res)})
+        .catch(err => { reject(err)} )
+    })
+}
