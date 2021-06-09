@@ -7,7 +7,7 @@ export function login(payload){
             email: payload.email,
             password: payload.password
         })
-        .then(res => { resolve(res)})
+        .then(res => { resolve(res.data)})
         .catch(err => { reject(err)} )
     })
 }
@@ -19,7 +19,7 @@ export function signUpApplicant(payload){
             email: payload.email,
             password: payload.password
         })
-        .then(res => { resolve(res)})
+        .then(res => { resolve(res.data)})
         .catch(err => { reject(err)} )
     })
 }
@@ -31,7 +31,27 @@ export function signUpCompany(payload){
             email: payload.email,
             password: payload.password
         })
-        .then(res => { resolve(res)})
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function getJobPosts(){
+    return new Promise((resolve, reject) => {
+        axios.get(endpoints.jobPosts)
+        .then(res => { resolve(res.data)})
+        .catch(err => { reject(err)} )
+    })
+}
+
+export function createJobPost(payload){
+    return new Promise((resolve, reject) => {
+        axios.post(endpoints.createJobPost, {
+            jobTitle: payload.jobTitle,
+            jobDescription: payload.jobDescription,
+            expectedSalary: payload.expectedSalary
+        })
+        .then(res => { resolve(res.data)})
         .catch(err => { reject(err)} )
     })
 }

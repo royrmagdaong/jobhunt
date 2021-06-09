@@ -5,7 +5,7 @@
             <job-filter class="job-filter"></job-filter>
         </v-col>
         <v-col cols="9">
-            <job-item v-for="i in 12" :key="i" class="mb-2"></job-item>
+            <job-item v-for="(jobPost, index) in jobPosts" :key="index" class="mb-2" :jobPost="jobPost"></job-item>
         </v-col>
     </v-row>
   </v-container>
@@ -19,6 +19,11 @@ export default {
     components:{
         'job-item': JobItem,
         'job-filter': JobFilter
+    },
+    computed:{
+        jobPosts(){
+            return this.$store.getters['jobs/getJobPosts']
+        }
     }
 }
 </script>

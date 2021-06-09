@@ -6,13 +6,14 @@
     <v-list-item three-line>
       <v-list-item-content>
         <div class="text-overline mb-4">
-          Company Name
+          {{ get(jobPost, 'author.name') }}
         </div>
         <v-list-item-title class="text-h5 mb-1">
-          Job Position/Title
+          {{ get(jobPost, 'jobTitle') }}
         </v-list-item-title>
-        <div class="caption">Expected salary: 13,000 - 18,000</div>
-        <v-list-item-subtitle>Libero potenti beatae tellus nibh, accusantium laoreet? Habitant ea nostra, ipsa donec? Donec ullamco ac ultrices, purus quisquam aliquam semper? Praesent rhoncus? Similique bibendum asperiores</v-list-item-subtitle>
+        <div class="caption">Expected salary: {{ get(jobPost, 'expectedSalary') }}</div>
+        <div class="caption">Date posted: {{ formatDate(get(jobPost, 'created_at')) }}</div>
+        <v-list-item-subtitle>{{ get(jobPost, 'jobDescription') }}</v-list-item-subtitle>
       </v-list-item-content>
 
       <v-list-item-avatar
@@ -42,8 +43,15 @@
 </template>
 
 <script>
-export default {
+import { get } from 'lodash'
+import { timedate } from '../mixins/timedate'
 
+export default {
+    mixins: [timedate],
+    props: ['jobPost'],
+    data: () => ({
+        get
+    })
 }
 </script>
 

@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 import {
     login,
     signUpApplicant,
@@ -39,12 +41,15 @@ var store = {
         signIn(context, payload){
             return new Promise((resolve, reject) => {
                 login(payload).then(res => {
-                    if(res.data.response){
-                        localStorage.setItem('userInfo', JSON.stringify(res.data.data))
-                        context.commit('SET_USER_INFO', res.data.data)
-                        resolve(res.data)
+                    if(res.response){
+                        // set token
+                        axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+
+                        localStorage.setItem('userInfo', JSON.stringify(res.data))
+                        context.commit('SET_USER_INFO', res.data)
+                        resolve(res)
                     }else{
-                        resolve(res.data)
+                        resolve(res)
                     }
                 }).catch(err => { reject(err) })
             })

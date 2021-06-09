@@ -18,6 +18,7 @@ import ApplicantBase from './views/applicant/Base'
 
 // company
 import CompanyBase from './views/company/Base'
+import CompanyCreateJobPost from './views/company/CreateJobPost'
 
 
 Vue.use(Router)
@@ -91,6 +92,7 @@ const router =  new Router({
         isCompanyOnly: true
       },
       children: [
+        { path: "post", component: CompanyCreateJobPost },
         { path: "*", component: NotFound }
       ]
     },
