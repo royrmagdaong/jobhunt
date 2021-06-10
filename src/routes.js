@@ -15,6 +15,12 @@ import AdminUsers from './views/admin/Users'
 
 // applicant
 import ApplicantBase from './views/applicant/Base'
+import ApplicantProfile from './views/applicant/Profile'
+import ApplicantProfileSummary from './components/applicant/profile/Summary'
+import ApplicantProfilePersonalInfo from './components/applicant/profile/PersonalInfo'
+import ApplicantProfileEducation from './components/applicant/profile/Education'
+import ApplicantProfileExperience from './components/applicant/profile/Experience'
+import ApplicantProfileSkills from './components/applicant/profile/Skills'
 
 // company
 import CompanyBase from './views/company/Base'
@@ -76,10 +82,21 @@ const router =  new Router({
       name: 'applicant',
       component: ApplicantBase,
       meta:{
-        requiresAuth: true,
-        isApplicantOnly: true
+        // requiresAuth: true,
+        // isApplicantOnly: true
       },
       children: [
+        { 
+          path: "profile", 
+          component: ApplicantProfile,
+          children:[
+            { path: "/", component: ApplicantProfileSummary },
+            { path: "personal-info", component: ApplicantProfilePersonalInfo },
+            { path: "education", component: ApplicantProfileEducation },
+            { path: "experience", component: ApplicantProfileExperience },
+            { path: "skills", component: ApplicantProfileSkills }
+          ]
+        },
         { path: "*", component: NotFound }
       ]
     },
@@ -88,8 +105,8 @@ const router =  new Router({
       name: 'company',
       component: CompanyBase,
       meta:{
-        requiresAuth: true,
-        isCompanyOnly: true
+        // requiresAuth: true,
+        // isCompanyOnly: true
       },
       children: [
         { path: "post", component: CompanyCreateJobPost },
