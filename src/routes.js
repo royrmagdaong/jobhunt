@@ -87,8 +87,8 @@ const router =  new Router({
       component: ApplicantBase,
       redirect: "applicant/profile",
       meta:{
-        // requiresAuth: true,
-        // isApplicantOnly: true
+        requiresAuth: true,
+        isApplicantOnly: true
       },
       children: [
         { 
@@ -111,8 +111,8 @@ const router =  new Router({
       component: CompanyBase,
       redirect: "company/profile",
       meta:{
-        // requiresAuth: true,
-        // isCompanyOnly: true
+        requiresAuth: true,
+        isCompanyOnly: true
       },
       children: [
         { 
@@ -141,7 +141,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!userInfo) {
       next('/login')
-    } else if( to.matched.some(record => record.meta.isAdminOnly) && (userRole==="applicant" || userRole==="company") ){
+    } else if( to.matched.some(record => record.meta.isAdminOnly) && (userRole==="applicant" || userRole==="company-admin" || userRole==="company-user") ){
       if(userRole==="applicant"){
         next('/applicant')
       }else{
@@ -153,7 +153,7 @@ router.beforeEach((to, from, next) => {
       }else{
         next('/admin')
       }
-    }else if( to.matched.some(record => record.meta.isApplicantOnly) && (userRole==="admin" || userRole==="company") ){
+    }else if( to.matched.some(record => record.meta.isApplicantOnly) && (userRole==="admin" || userRole==="company-admin" || userRole==="company-user") ){
       if(userRole==="admin"){
         next('/admin')
       }else{
@@ -166,7 +166,7 @@ router.beforeEach((to, from, next) => {
     if(userRole){
       if(userRole === 'applicant'){
         next('/applicant')
-      }else if(userRole === 'company'){
+      }else if(userRole === 'company-admin' || userRole === 'company-user'){
         next('/company')
       }else{
         next('/admin')
