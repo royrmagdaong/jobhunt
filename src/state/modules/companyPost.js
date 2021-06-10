@@ -15,10 +15,8 @@ var store = {
     },
     actions:{
         createJobPost(context, payload){
-            const token = JSON.parse(localStorage.getItem('userInfo')).token
             return new Promise((resolve, reject) => {
                 createJobPost({
-                    token,
                     jobTitle: payload.jobTitle,
                     jobDescription: payload.jobDescription,
                     expectedSalary: payload.expectedSalary
