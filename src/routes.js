@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // 
-import Home from './components/Home'
+import Home from './views/Home'
 import NotFound from './views/NotFound'
 import SignIn from './views/SignIn'
 import SignUp from './views/SignUp'
