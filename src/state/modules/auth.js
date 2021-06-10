@@ -3,7 +3,8 @@ import axios from 'axios'
 import {
     login,
     signUpApplicant,
-    signUpCompany
+    signUpCompany,
+    signUpCompanyUser
 } from '../../api'
 
 var store = {
@@ -35,6 +36,13 @@ var store = {
             return new Promise((resolve, reject) => {
                 signUpCompany(payload)
                 .then(res => { resolve(res.data) })
+                .catch(err => { reject(err) })
+            })
+        },
+        signUpCompanyUser(context, payload){
+            return new Promise((resolve, reject) => {
+                signUpCompanyUser(payload)
+                .then(res => { resolve(res) })
                 .catch(err => { reject(err) })
             })
         },

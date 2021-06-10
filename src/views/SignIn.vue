@@ -37,7 +37,11 @@ export default {
         password: this.password
       }).then(res=>{
         if(res.response){
-          this.$router.push(res.data.role)
+          if(res.data.role === "company-admin" || res.data.role === "company-user"){
+            this.$router.push('company')
+          }else{
+            this.$router.push(res.data.role)
+          }
         }
       }).catch(err=>{
         console.log(err)

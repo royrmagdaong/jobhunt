@@ -85,7 +85,7 @@ export default {
           this.setSnackbar(true,null,err.message)
         })
       }else{
-        console.log('password does not match')
+        this.setSnackbar(true,null,'password does not match')
       }
     }
   }
