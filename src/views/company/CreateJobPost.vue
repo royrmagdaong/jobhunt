@@ -26,6 +26,16 @@
             dense
             v-model="expectedSalary"
           ></v-text-field>
+          <v-text-field
+            label="Number of applicant needed"
+            type="number"
+            min="1"
+            class="mb-2"
+            outlined
+            hide-details
+            dense
+            v-model="numberOfApplicantNeeded"
+          ></v-text-field>
           <v-btn
             color="green lighten-1"
             class="white--text"
@@ -43,15 +53,27 @@ export default {
   data:() => ({
     title: '',
     description: '',
-    expectedSalary: ''
+    expectedSalary: '',
+    numberOfApplicantNeeded: 1
   }),
   methods:{
     createPost(){
-      if(this.title && this.description && this.expectedSalary){
+      if(this.title && this.description && this.expectedSalary && this.numberOfApplicantNeeded > 0){
         this.$store.dispatch('companyPost/createJobPost', {
           jobTitle: this.title,
           jobDescription: this.description,
-          expectedSalary: this.expectedSalary
+          expectedSalary: this.expectedSalary,
+          numberOfApplicantNeeded: this.numberOfApplicantNeeded
+        }).then(res => {
+          if(res.response){
+            this.title = ''
+            this.description = ''
+            this.expectedSalary = ''
+            this.numberOfApplicantNeeded = 1
+            this.setSnackbar(true,null, 'Post created.')
+          }
+        }).catch(err => {
+          console.log(err)
         })
       }else{
         this.setSnackbar(true,null, 'please fill up all fields.')

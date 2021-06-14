@@ -7,17 +7,21 @@
         <v-btn text class="white--text" @click="routeTo('/login')">Login</v-btn>
     </div>
     <div v-else>
+        <v-btn text class="white--text" v-if="get(userInfo, 'role') === 'company-user'" @click="routeTo('/company/profile')">Profile</v-btn>
+        <v-btn text class="white--text" v-if="get(userInfo, 'role') === 'company-admin'" @click="routeTo('/company/profile')">Profile</v-btn>
+        <v-btn text class="white--text" v-if="get(userInfo, 'role') === 'applicant'" @click="routeTo('/applicant/profile')">Profile</v-btn>
         <v-btn text class="white--text" @click="routeTo('/jobs')">Jobs</v-btn>
-        <v-btn text class="white--text" @click="routeTo('/company/post')">Post</v-btn>
+        <v-btn text class="white--text" v-if="get(userInfo, 'role') === 'company-user' || get(userInfo, 'role') === 'company-admin'" @click="routeTo('/company/post')">Post</v-btn>
         <v-btn text class="white--text" @click="logout">Logout</v-btn>
     </div>
 </div>
 </template>
 
 <script>
+import {get} from 'lodash'
 export default {
     data:()=>({
-
+        get
     }),
     computed:{
         userInfo(){

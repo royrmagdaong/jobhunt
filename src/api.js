@@ -48,9 +48,13 @@ export function signUpCompanyUser(payload){
     })
 }
 
-export function getJobPosts(){
+export function getJobPosts(payload){
     return new Promise((resolve, reject) => {
-        axios.get(endpoints.jobPosts)
+        axios.get(endpoints.jobPosts, {
+            params:{
+                page: payload.page
+            }
+        })
         .then(res => { resolve(res.data)})
         .catch(err => { reject(err)} )
     })
@@ -61,7 +65,8 @@ export function createJobPost(payload){
         axios.post(endpoints.createJobPost, {
             jobTitle: payload.jobTitle,
             jobDescription: payload.jobDescription,
-            expectedSalary: payload.expectedSalary
+            expectedSalary: payload.expectedSalary,
+            numberOfApplicantNeeded: payload.numberOfApplicantNeeded
         })
         .then(res => { resolve(res.data)})
         .catch(err => { reject(err)} )

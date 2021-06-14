@@ -19,7 +19,8 @@ var store = {
                 createJobPost({
                     jobTitle: payload.jobTitle,
                     jobDescription: payload.jobDescription,
-                    expectedSalary: payload.expectedSalary
+                    expectedSalary: payload.expectedSalary,
+                    numberOfApplicantNeeded: payload.numberOfApplicantNeeded
                 }).then(res => {
                     resolve(res)
                 }).catch(err => {
