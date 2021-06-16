@@ -6,7 +6,7 @@
     <v-list-item three-line>
       <v-list-item-content>
         <div class="text-overline mb-4">
-          {{ get(jobPost, 'author.name') }}
+          {{ get(jobPost, 'company.companyName') }}
         </div>
         <v-list-item-title class="text-h5 mb-1">
           {{ get(jobPost, 'jobTitle') }}
