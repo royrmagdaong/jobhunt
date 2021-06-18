@@ -62,6 +62,7 @@ export default {
           email: this.email,
           password: this.password
         }).then(res => {
+          console.log(res)
           if(res.response){
             // sign in after registration
             this.$store.dispatch('auth/signIn', {
@@ -71,13 +72,12 @@ export default {
               if(res.response){
                 this.$router.push(res.data.role)
               }
-              this.setSnackbar(true,null,res)
+              this.setSnackbar(true,null,"Register success")
             }).catch(err=>{ 
               console.log(err) 
               this.setSnackbar(true,null,err.message)
             })
-          }else{ 
-            console.log(res)
+          }else{
             this.setSnackbar(true,null,res.message)
           }
         }).catch(err => { 

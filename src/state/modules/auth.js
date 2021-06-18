@@ -28,7 +28,7 @@ var store = {
         signUpApplicant(context, payload){
             return new Promise((resolve, reject) => {
                 signUpApplicant(payload)
-                .then(res => { resolve(res.data) })
+                .then(res => { resolve(res) })
                 .catch(err => { reject(err) })
             })
         },
