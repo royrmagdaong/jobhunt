@@ -5,7 +5,7 @@
               <v-row style="height:450px; " class="ma-0">
                   <v-col cols="6" align-self="center">
                       <div class="ml-8">
-                      <p class="display-2">HIRE FREELANCERSSSS</p>
+                      <p class="display-2">HIRE FREELANCERS</p>
                       <p class="display-2">Make things happen</p>
                       <p class="ma-0">Get matched to top talent in minutes through our global</p>
                       <p class="ma-0">network of skilled freelancers and professional agencies.</p>
